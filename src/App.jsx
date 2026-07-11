@@ -105,7 +105,7 @@ messages:[{role:"user",content:"Transform this testimonial for "+(name||"a servi
 })
 });
 if(!res.ok) throw new Error("api");
-const data=await res.json();const parsed=dataconst parsed=data;
+const data=await res.json();const parsed=data;
 const raw=data.content?.map(b=>b.text||"").join("")||"";
 =raw.match(/\{[\s\S]*\}/);
 if(!jsonMatch) throw new Error("parse");
