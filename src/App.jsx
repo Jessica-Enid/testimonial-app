@@ -84,7 +84,7 @@ const [result,setResult]=useState(null);
 const [error,setError]=useState("");
 const [activeTab,setActiveTab]=useState(0);
 
-const transform=async()=>{
+ transform=async()=>{
 if(!input.trim()) return;
 setLoading(true);setResult(null);setError("");
 try{
@@ -93,9 +93,7 @@ const res=await fetch("/api/transform",{
 method:"POST",
 headers:{
 "Content-Type":"application/json",
-"x-api-key":import.meta.env.VITE_ANTHROPIC_API_KEY,
-"anthropic-version":"2023-06-01",
-"anthropic-dangerous-direct-browser-access":"true"
+
 },
 body:JSON.stringify({
 model:"claude-sonnet-4-20250514",
@@ -106,10 +104,6 @@ messages:[{role:"user",content:"Transform this testimonial for "+(name||"a servi
 });
 if(!res.ok) throw new Error("api");
 const data=await res.json();const parsed=data;
-const raw=data.content?.map(b=>b.text||"").join("")||"";
-=raw.match(/\{[\s\S]*\}/);
-if(!jsonMatch) throw new Error("parse");
-const parsed=JSON.parse(jsonMatch[0]);const jsonMatch
 if(!parsed.transformed||parsed.score===undefined) throw new Error("parse");
 setResult(parsed);setActiveTab(0);
 }catch(e){
