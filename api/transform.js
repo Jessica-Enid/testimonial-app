@@ -10,7 +10,11 @@ export default async function handler(req, res) {
       body: JSON.stringify(req.body)
     });
     const data = await response.json();
-    res.status(response.status).json(data);
+    const text = data.content?.map(b => b.text || "").join("") || "";
+    const match = text.match(/\{[\s\S]*\}/);
+    if (!match) return res.status(500).json({ error: "parse" });
+    const parsed = JSON.parse(match[0]);
+    res.status(200).json(parsed);
   } catch(e) {
     res.status(500).json({ error: e.message });
   }

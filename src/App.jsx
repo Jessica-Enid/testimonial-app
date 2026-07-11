@@ -105,11 +105,11 @@ messages:[{role:"user",content:"Transform this testimonial for "+(name||"a servi
 })
 });
 if(!res.ok) throw new Error("api");
-const data=await res.json();
+const data=await res.json();const parsed=dataconst parsed=data;
 const raw=data.content?.map(b=>b.text||"").join("")||"";
-const jsonMatch=raw.match(/\{[\s\S]*\}/);
+=raw.match(/\{[\s\S]*\}/);
 if(!jsonMatch) throw new Error("parse");
-const parsed=JSON.parse(jsonMatch[0]);
+const parsed=JSON.parse(jsonMatch[0]);const jsonMatch
 if(!parsed.transformed||parsed.score===undefined) throw new Error("parse");
 setResult(parsed);setActiveTab(0);
 }catch(e){
